@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.webestar.sams.microsvc.org.mapper">
+
+    <resultMap type="Corp" id="BaseResultMap">
+        <result property="id" column="id"/>
+        <result property="updaterId" column="updater_id"/>
+        <result property="createrId" column="creater_id"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="createTime" column="create_time"/>
+        <result property="name" column="name"/>
+        <result property="address" column="address"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        <trim suffixOverrides=",">
+            T.id, T.updater_id, T.creater_id, T.update_time, T.create_time, T.name, T.address, T.status,
+        </trim>
+    </sql>
+
+</mapper>

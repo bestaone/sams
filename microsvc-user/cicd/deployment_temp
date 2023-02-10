@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: microsvc-user
+  name: microsvc-user
+  namespace: wxcloud-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: microsvc-user
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: microsvc-user
+    spec:
+      containers:
+        - env:
+            - name: NACOS_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: host
+                  name: nacos.conf
+            - name: NACOS_PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: port
+                  name: nacos.conf
+            - name: aliyun_logs_microsvc-user-test
+              value: /wenxiang/service/logs/microsvc-user/debug.log
+          image: 'harbor-wx.webestar.cn/wxcloud-test/microsvc-user:latest'
+          imagePullPolicy: Always
+          name: microsvc-user
+          readinessProbe:
+            failureThreshold: 30
+            httpGet:
+              path: /actuator/health
+              port: 3000
+              scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              #cpu: 1000m
+              memory: 640Mi
+            requests:
+              #cpu: 100m
+              memory: 640Mi
+          volumeMounts:
+            - mountPath: /etc/localtime
+              name: volume-localtime
+            - mountPath: /wenxiang/service/logs
+              name: volume-wxcloud-test-logs-nas
+      imagePullSecrets:
+        - name: harbor-jenkins
+      volumes:
+        - name: volume-wxcloud-test-logs-nas
+          persistentVolumeClaim:
+            claimName: wxcloud-test-logs-nas
+        - hostPath:
+            path: /etc/localtime
+            type: ''
+          name: volume-localtime
+      restartPolicy: Always

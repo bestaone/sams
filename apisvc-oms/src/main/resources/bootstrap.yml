@@ -1,0 +1,10 @@
+
+spring.application.name: apisvc-oms
+
+spring.cloud.nacos.config:
+  server-addr: ${NACOS_HOST:nacos-server}:${NACOS_PORT:8848}
+  file-extension: yml
+  shared-configs:
+    - application-cloud.yml
+    - application-db.yml
+  namespace: ${NACOS_DISCOVERY_NAMESPACE:sams}

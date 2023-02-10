@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+    <groupId>cn.webestar</groupId>
+    <artifactId>sams</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>basic-dependencies</module>
+        <module>basic-common</module>
+        <module>basic-beans</module>
+        <module>basic-core</module>
+        <module>starter-cache</module>
+        <module>starter-logger</module>
+        <module>starter-mq</module>
+        <module>starter-mybatis</module>
+        <module>starter-pusher</module>
+        <module>starter-security</module>
+        <module>starter-doc</module>
+        <module>starter-apisvc</module>
+        <module>starter-microsvc</module>
+        <module>starter-utils</module>
+        <module>starter-route</module>
+        <module>starter-sequence</module>
+        <module>starter-sentinel</module>
+        <module>compsvc-gateway</module>
+        <module>microsvc-org</module>
+        <module>microsvc-user</module>
+        <module>apisvc-auth</module>
+        <module>apisvc-oms</module>
+        <module>apisvc-mall</module>
+    </modules>
+
+</project>

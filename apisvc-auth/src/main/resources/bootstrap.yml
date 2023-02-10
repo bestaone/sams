@@ -1,0 +1,15 @@
+
+spring.application.name: apisvc-auth
+
+spring.cloud.nacos.config:
+  server-addr: ${NACOS_HOST:nacos-server}:${NACOS_PORT:8848}
+  file-extension: yml
+  shared-configs:
+    - application-common.yml
+    - application-cloud.yml
+    - application-redis.yml
+  namespace: ${NACOS_CONFIG_NAMESPACE:sams}
+
+spring.cloud.nacos.discovery:
+  server-addr: ${NACOS_HOST:nacos-server}:${NACOS_PORT:8848}
+  namespace: ${NACOS_DISCOVERY_NAMESPACE:sams}

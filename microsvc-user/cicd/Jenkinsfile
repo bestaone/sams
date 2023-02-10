@@ -1,0 +1,66 @@
+pipeline {
+  agent any
+  environment {
+    BRANCH = 'master'
+    APP_MODULE = "/"
+    GIT_BASE = '/home/wxes-docker'
+    APP_BUILD_PATH = "${GIT_BASE}/wxcloud40/microsvc-user/test"
+    DOCKER_REGISTRY = "harbor-wx.webestar.cn/wxcloud-test"
+    APP_NAME="microsvc-user"
+    APP_PORT="9001"
+    APP_NAMESPACE="wxcloud-test"
+    APP_ENV="test"
+  }
+
+  stages {
+
+    stage('SonarCheck') {
+      steps {
+        echo 'STEP : 代码分析...'
+        sh 'cd ${WORKSPACE} && ls -alh'
+      }
+    }
+
+    stage('MvnBuild') {
+      agent {
+        docker {
+          image 'maven:3.8.6-eclipse-temurin-17-alpine'
+          args '-v /root/.wxcloud:/root/.m2 -v /home/jenkins/workspace/microsvc-user:/wenxiang -v /home/u01/docker-maven/settings.xml:/usr/share/maven/conf/settings.xml'
+        }
+      }
+      steps {
+        echo 'STEP : maven构建...'
+        sh 'cd /wenxiang && mvn -B -DskipTests install'
+      }
+    }
+
+    stage('BuildDockerImage') {
+      environment {
+        HARBOR_KEY = credentials('harbor-wx')
+      }
+      steps {
+        echo 'STEP : 构建Docker Image'
+        sh """
+        docker build -f ./cicd/Dockerfile -t ${DOCKER_REGISTRY}/${JOB_BASE_NAME}:${BUILD_NUMBER} .
+        docker tag ${DOCKER_REGISTRY}/${JOB_BASE_NAME}:${BUILD_NUMBER} ${DOCKER_REGISTRY}/${JOB_BASE_NAME}:latest
+        docker push ${DOCKER_REGISTRY}/${JOB_BASE_NAME}:${BUILD_NUMBER}
+        docker push ${DOCKER_REGISTRY}/${JOB_BASE_NAME}:latest
+        """
+      }
+    }
+
+    stage('DeployGroup') {
+      steps {
+        echo 'STEP : 开始部署'
+        sh """
+        cd ${WORKSPACE} ||  exit 1
+        sed 's,latest,${BUILD_NUMBER},g' ./cicd/deployment_temp > deployment.yaml
+        sh /home/cicd/deploy.sh ${APP_NAME} ${APP_PORT} ${APP_ENV} ${APP_NAMESPACE} ${WORKSPACE} 1
+        """
+      }
+    }
+
+
+  }
+
+}
