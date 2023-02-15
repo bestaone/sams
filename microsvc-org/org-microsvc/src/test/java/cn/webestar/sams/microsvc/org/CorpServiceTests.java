@@ -29,6 +29,8 @@ class CorpServiceTests {
 		Corp o = new Corp();
 		o.setName("宇宙_564");
 		o.setAddress("13433334444");
+		o.setUpdaterId(1L);
+		o.setCreaterId(1L);
 		service.save(o);
 		Assert.notNull(o.getId(), "添加失败");
 

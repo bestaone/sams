@@ -33,6 +33,8 @@ class UserServiceTests {
 		o.setPhoneNum("13433334444");
 		o.setPassword("1111");
 		o.setRegtime(LocalDateTime.now());
+		o.setUpdaterId(1L);
+		o.setCreaterId(1L);
 		service.save(o);
 		Assert.notNull(o.getId(), "添加失败");
 

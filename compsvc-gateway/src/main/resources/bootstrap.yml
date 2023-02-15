@@ -16,3 +16,4 @@ spring.cloud.nacos.config:
 spring.cloud.nacos.discovery:
   server-addr: ${NACOS_HOST:nacos-server}:${NACOS_PORT:8848}
   namespace: ${NACOS_DISCOVERY_NAMESPACE:sams}
+
