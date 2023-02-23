@@ -2,18 +2,22 @@ package cn.webestar.sams.compsvc.gateway.filter;
 
 import cn.webestar.sams.basic.common.Constant;
 import cn.webestar.sams.basic.common.R;
+import cn.webestar.sams.starter.utils.JwtTokenUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import cn.webestar.sams.starter.utils.JwtTokenUtil;
 import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
-import org.springframework.cloud.gateway.filter.GlobalFilter;
+import org.springframework.core.Ordered;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
+import org.springframework.stereotype.Component;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -23,15 +27,16 @@ import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 @Slf4j
-public class GlobalAuthFilter implements GlobalFilter {
+@Component
+public class AuthCheckGateWayFilter implements GatewayFilter, Ordered {
 
+    private AntPathMatcher antPathMatcher = new AntPathMatcher();
+
+    @Autowired
     private RedisTemplate redisTemplate;
-    private ObjectMapper objectMapper;
 
-    public GlobalAuthFilter(RedisTemplate redisTemplate, ObjectMapper objectMapper){
-        this.redisTemplate = redisTemplate;
-        this.objectMapper = objectMapper;
-    }
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
@@ -114,11 +119,17 @@ public class GlobalAuthFilter implements GlobalFilter {
      */
     public boolean isIgnoreUrl(String uri) {
         for (String includeUrl : Constant.AUTH.IGNORE_URLS) {
-            if (uri.startsWith(includeUrl)) {
+            if (antPathMatcher.match(includeUrl, uri)) {
                 return true;
             }
         }
         return false;
+    }
+
+    //   值越小，优先级越高
+    @Override
+    public int getOrder() {
+        return HIGHEST_PRECEDENCE;
     }
 
 }

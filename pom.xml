@@ -31,6 +31,7 @@
         <module>compsvc-gateway</module>
         <module>microsvc-org</module>
         <module>microsvc-user</module>
+        <module>microsvc-oms</module>
         <module>apisvc-auth</module>
         <module>apisvc-oms</module>
         <module>apisvc-mall</module>

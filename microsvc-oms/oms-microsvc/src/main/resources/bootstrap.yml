@@ -1,5 +1,5 @@
 
-spring.application.name: apisvc-oms
+spring.application.name: microsvc-oms
 
 spring.cloud.nacos.config:
   server-addr: ${NACOS_HOST:nacos-server}:${NACOS_PORT:8848}
@@ -7,7 +7,9 @@ spring.cloud.nacos.config:
   shared-configs:
     - application-common.yml
     - application-cloud.yml
+    - application-mybatis.yml
     - application-redis.yml
+    - application-seata.yml
   namespace: ${NACOS_CONFIG_NAMESPACE:sams}
 
 spring.cloud.nacos.discovery:

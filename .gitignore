@@ -48,6 +48,8 @@ build/
 *.log
 
 **/node_modules
+**/.umi
+**/.umi-production
 temp
 
 ### java ###

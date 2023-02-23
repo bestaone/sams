@@ -7,7 +7,6 @@ spring.cloud.nacos.config:
   shared-configs:
     - application-common.yml
     - application-cloud.yml
-    - application-user.yml
     - application-mybatis.yml
     - application-redis.yml
     - application-seata.yml

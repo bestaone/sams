@@ -23,6 +23,21 @@
     </dependencyManagement>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <!-- 开发支持：热启动等 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <!-- 必须得启动以来 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bootstrap</artifactId>
+        </dependency>
         <!--注册中心客户端-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
@@ -33,17 +48,11 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
-
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-bootstrap</artifactId>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
+        <!-- 单元测试 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -54,7 +63,50 @@
             <artifactId>junit-jupiter</artifactId>
             <scope>test</scope>
         </dependency>
-
+        <!-- web服务必选 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!-- openfeign 处理header传递 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <!-- 项目依赖 -->
+        <dependency>
+            <groupId>cn.webestar.sams.basic</groupId>
+            <artifactId>basic-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.webestar.sams.starter</groupId>
+            <artifactId>starter-cache</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.webestar.sams.starter</groupId>
+            <artifactId>starter-utils</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.webestar.sams.starter</groupId>
+            <artifactId>starter-doc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.webestar.sams.starter</groupId>
+            <artifactId>starter-route</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.webestar.sams.starter</groupId>
+            <artifactId>starter-sentinel</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.webestar.sams.microsvc</groupId>
+            <artifactId>oms-api</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>

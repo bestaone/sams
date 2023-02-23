@@ -1,6 +1,6 @@
-package cn.webestar.sams.basic.common;
+package cn.webestar.sams.apisvc.oms.common;
 
-public class Constant {
+public class OmsConstant {
 
     public static class AUTH {
 
@@ -23,14 +23,14 @@ public class Constant {
         /**
          * token key 的key格式
          */
-        public final static String ACCESS_TOKEN_CACHE_KEY = "sams:accessToken:%s:%s";
+        public final static String ACCESS_TOKEN_CACHE_KEY = "oms:accessToken:%s:%s";
 
         /**
          * refresh_token 的key格式
          */
-        public final static String REFRESH_TOKEN_CACHE_KEY = "sams:refreshToken:%s:%s";
+        public final static String REFRESH_TOKEN_CACHE_KEY = "oms:refreshToken:%s:%s";
 
-        public final static String[] IGNORE_URLS = {"/apisvc-oms/", "/**/api/open/**"};
+        public final static String[] IGNORE_URLS = {"/api/open"};
     }
 
 }
