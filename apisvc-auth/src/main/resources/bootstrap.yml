@@ -8,6 +8,7 @@ spring.cloud.nacos.config:
     - application-common.yml
     - application-cloud.yml
     - application-redis.yml
+    - application-seata.yml
   namespace: ${NACOS_CONFIG_NAMESPACE:sams}
 
 spring.cloud.nacos.discovery:

@@ -75,6 +75,10 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.apache.skywalking</groupId>
+            <artifactId>apm-toolkit-logback-1.x</artifactId>
+        </dependency>
         <!-- 项目依赖 -->
         <dependency>
             <groupId>cn.webestar.sams.basic</groupId>

@@ -98,6 +98,12 @@
             <classifier>osx-aarch_64</classifier>
         </dependency>
 
+        <!-- skywalking -->
+        <dependency>
+            <groupId>org.apache.skywalking</groupId>
+            <artifactId>apm-toolkit-logback-1.x</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>cn.webestar.sams.basic</groupId>
             <artifactId>basic-core</artifactId>

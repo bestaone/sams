@@ -18,13 +18,18 @@ VOLUME /data
 # 暴露远程deug端口
 EXPOSE 5005
 
+COPY agent /agent/
+
 ADD compsvc-gateway.jar     compsvc-gateway.jar
 ADD apisvc-auth.jar         apisvc-auth.jar
 ADD apisvc-mall.jar         apisvc-mall.jar
+ADD apisvc-oms.jar          apisvc-oms.jar
 ADD microsvc-user.jar       microsvc-user.jar
 ADD microsvc-org.jar        microsvc-org.jar
+ADD microsvc-oms.jar        microsvc-oms.jar
 
-COPY dist /usr/local/nginx/html/app
+COPY front-mall/dist /usr/local/nginx/html/mall
+COPY front-oms/dist /usr/local/nginx/html/oms
 ADD app.conf /usr/local/nginx/conf/vhost/
 
 ADD start.sh start.sh

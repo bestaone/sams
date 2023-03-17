@@ -10,6 +10,7 @@ import cn.webestar.sams.starter.sentinel.handler.DefaultFallbackHandler;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import io.seata.spring.annotation.GlobalTransactional;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.time.LocalDateTime;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/basic")
 public class ApiController {
@@ -33,6 +35,7 @@ public class ApiController {
     public R<String> testLoadBalanc(HttpServletRequest requet) throws UnknownHostException {
         String ip = InetAddress.getLocalHost().getHostAddress();
         Integer port = requet.getServerPort();
+        log.info("testLoadBalanc！");
         return R.success(ip + ":" + port);
     }
 
@@ -47,6 +50,7 @@ public class ApiController {
     )
     @GetMapping("/testSentinel")
     public R<String> testSentinel() {
+        log.info("testSentinel！");
         return R.success();
     }
 
@@ -72,6 +76,8 @@ public class ApiController {
         b1.setCreaterId(1L);
         b1.setUpdaterId(1L);
         R r2 = corpApi.create(b1);
+
+        log.info("testSeata！");
 
         throw new Exception("发生异常，数据已回滚，请核查数据库表");
     }

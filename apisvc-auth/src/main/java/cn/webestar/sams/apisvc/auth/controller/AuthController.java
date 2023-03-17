@@ -74,6 +74,8 @@ public class AuthController {
         vo.setRefreshToken(context.getRefreshToken());
         vo.setExpireIn(expireIn);
 
+        log.info("账号登录成功！");
+
         return R.success(vo);
     }
 
@@ -104,6 +106,8 @@ public class AuthController {
         vo.setAccessToken(context.getAccessToken());
         vo.setRefreshToken(context.getRefreshToken());
         vo.setExpireIn(expireIn);
+
+        log.info("短信登录成功！");
 
         return R.success(vo);
     }

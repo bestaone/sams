@@ -193,8 +193,26 @@ http://127.0.0.1:8848/nacos
 
 - 控制台地址：http://127.0.0.1:7091 seata/seata
 
+### 7、安装SkyWalking
 
-### 7、添加本地hosts配置
+- 安装
+```bash
+# 启动服务端oap    
+docker run --name oap -p 11800:11800 -p 12800:12800 -e TZ=Asia/Shanghai --restart always -d apache/skywalking-oap-server:9.3.0
+# 启动UI端 
+docker run --name oap-ui --link oap:oap -p 8989:8080 -e TZ=Asia/Shanghai -e SW_OAP_ADDRESS=oap:12800 --restart always -d apache/skywalking-ui:9.3.0
+```
+>注:有时由于网络慢，网页会打不开，使用nginx反向代理下就行了（利用到了nginx的缓存加速）
+
+- 集成
+```bash
+java -javaagent:/agent/skywalking-agent.jar -DSW_AGENT_COLLECTOR_BACKEND_SERVICES=192.168.0.158:11800 -DSW_AGENT_NAME=compsvc-gateway -jar /compsvc-gateway.jar
+```
+
+- 日志
+略
+
+### 8、添加本地hosts配置
 在`/etc/hosts`文件中加入下列配置（Mac电脑）
 ```bash
 xx.xx.xx.xx nacos-server
@@ -205,7 +223,7 @@ xx.xx.xx.xx sentinel-server
 ```
 
 
-### 8、构建、启动
+### 9、构建、启动
 - 构建
 ```bash
 >cd sams
@@ -239,7 +257,7 @@ xx.xx.xx.xx sentinel-server
 ```
 
 
-### 9、测试验证
+### 10、测试验证
 #### 访问前端页面
 >http://127.0.0.1:8000
 
